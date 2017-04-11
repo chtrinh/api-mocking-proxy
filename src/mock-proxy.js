@@ -20,6 +20,9 @@ const requestp = pify(request, {multiArgs: true});
 const eh = (res) => (err) => errorHandler(res, err);
 
 const responseHandler = (req, res) => ([retRes, body]) => {
+  // Add for all origin!
+  retRes.headers["access-control-allow-origin"] = req.headers.origin
+
   var data = {
     code: retRes.statusCode,
     headers: retRes.headers,
