@@ -25,10 +25,10 @@ const responseHandler = (req, res) => ([retRes, body]) => {
       retRes.headers['access-control-allow-origin'] = req.headers.origin;
   }
 
-  retRes.headers['Transfer-Encoding'] = 'gzip, chunked';
-  // Remove encoding because we've processed the body already.
-  delete retRes.headers['content-length'];
-  
+  // retRes.headers['Transfer-Encoding'] = 'gzip, chunked';
+  // // Remove encoding because we've processed the body already.
+  // delete retRes.headers['content-length'];
+
   var data = {
     code: retRes.statusCode,
     headers: retRes.headers,
