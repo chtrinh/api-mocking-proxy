@@ -26,7 +26,7 @@ const middleware = () => (req, res, next) => {
       contentType: mapping.contentType,
       noproxy: mapping.noproxy,
       nocache: mapping.nocache,
-      refreshFiles: mapping.refreshFiles
+      refreshFiles: mapping.refreshFiles,
       touchFiles: mapping.touchFiles
     };
     req.conf = conf;
