@@ -6,10 +6,11 @@ const middleware = () => (req, res, next) => {
     return next();
   }
   cacher.get(req).then((payload) => {
-    if (!payload) {
+    if (!payload || req.conf.refreshFiles) {
       // Not in cache, keep on moving.
       return next();
     }
+
     passthru(res, payload);
   }).catch(err => {
     console.log('Cache error', err);
