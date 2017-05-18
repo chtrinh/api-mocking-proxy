@@ -20,7 +20,8 @@ const requestp = pify(request, {multiArgs: true});
 const eh = (res) => (err) => errorHandler(res, err);
 
 const responseHandler = (req, res) => ([retRes, body]) => {
-  retRes.headers['Transfer-Encoding'] = 'gzip, chunked';
+  // Use chucked because we don't want content-length set
+  retRes.headers['Transfer-Encoding'] = 'chunked';
   // Remove encoding because we've processed the body already.
   delete retRes.headers['content-length'];
   delete retRes.headers['Access-Control-Allow-Origin'];
