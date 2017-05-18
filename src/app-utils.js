@@ -103,8 +103,13 @@ export function resolveMockPath (req, dataRoot) {
   return path;
 }
 
-export function passthru (res, options) {
+export function passthru (res, options, req) {
   try {
+    // Add for all origin!
+    if (req.headers.origin) {
+      options.headers['Access-Control-Allow-Origin'] = req.headers.origin;
+    }
+
     res.writeHead(options.code || 200, options.headers);
     res.write(options.body);
     res.end();

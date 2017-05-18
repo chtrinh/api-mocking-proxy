@@ -20,11 +20,6 @@ const requestp = pify(request, {multiArgs: true});
 const eh = (res) => (err) => errorHandler(res, err);
 
 const responseHandler = (req, res) => ([retRes, body]) => {
-  // Add for all origin!
-  if (req.headers.origin) {
-      retRes.headers['access-control-allow-origin'] = req.headers.origin;
-  }
-
   retRes.headers['Transfer-Encoding'] = 'gzip, chunked';
   // Remove encoding because we've processed the body already.
   delete retRes.headers['content-length'];
@@ -35,7 +30,7 @@ const responseHandler = (req, res) => ([retRes, body]) => {
     body: body
   };
 
-  cacher.set(req, data).then(() => passthru(res, data), eh(res));
+  cacher.set(req, data).then(() => passthru(res, data, req), eh(res));
 };
 
 const middleware = () => (req, res, next) => {
